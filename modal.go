@@ -17,13 +17,8 @@ type modal struct {
 	closeCallback func(p *player.Player)
 }
 
-func NewModal() Modal {
-	return &modal{}
-}
-
-func (m *modal) WithTitle(title string) Modal {
-	m.title = title
-	return m
+func NewModal(title string) Modal {
+	return &modal{title: title}
 }
 
 func (m *modal) WithContent(content string) Modal {
@@ -87,7 +82,6 @@ func (m *modal) SubmitJSON(data []byte, s form.Submitter, _ *world.Tx) error {
 type Modal interface {
 	form.Form
 
-	WithTitle(title string) Modal
 	WithContent(content string) Modal
 	WithButton1(text string) Modal
 	WithButton2(text string) Modal

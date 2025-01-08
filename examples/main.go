@@ -51,7 +51,7 @@ func (h exampleHandler) HandleItemUse(ctx *player.Context) {
 }
 
 func exampleMenu(p *player.Player) {
-	m := form.NewMenu().WithTitle("Server Selector")
+	m := form.NewMenu("Server Selector")
 	m.WithContent("Available servers:")
 	m.WithButton("Lobby-1", "textures/items/compass")
 	m.WithButton("Lobby-2", "textures/items/compass")
@@ -66,7 +66,7 @@ func exampleMenu(p *player.Player) {
 }
 
 func exampleModal(p *player.Player) {
-	m := form.NewModal().WithTitle("Confirmation")
+	m := form.NewModal("Confirmation")
 	m.WithContent("Are you sure you want to delete this item?")
 	m.WithButton1("Yes")
 	m.WithButton2("No")
@@ -84,7 +84,7 @@ func exampleModal(p *player.Player) {
 }
 
 func exampleCustom(p *player.Player) {
-	c := form.NewCustom().WithTitle("Custom Form")
+	c := form.NewCustom("Custom Form")
 	c.WithElement("name", form.NewInput("Your name").WithPlaceholder("Pig"))
 	c.WithElement("age", form.NewSlider("Your age", 0, 200).WithStepSize(1).WithDefault(10))
 	c.WithElement("favourite color", form.NewDropdown("Select your favorite color").WithOptions("Red", "Green", "Blue"))

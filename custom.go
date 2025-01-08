@@ -17,16 +17,12 @@ type custom struct {
 	closeCallback      func(p *player.Player)
 }
 
-func NewCustom() Custom {
+func NewCustom(title string) Custom {
 	return &custom{
+		title:              title,
 		elements:           make([]Element, 0),
 		elementsKeyToIndex: make(map[string]int),
 	}
-}
-
-func (c *custom) WithTitle(title string) Custom {
-	c.title = title
-	return c
 }
 
 func (c *custom) WithElement(key string, element Element) Custom {
@@ -92,7 +88,6 @@ func (c *custom) SubmitJSON(data []byte, s form.Submitter, _ *world.Tx) error {
 type Custom interface {
 	form.Form
 
-	WithTitle(title string) Custom
 	WithElement(key string, element Element) Custom
 	WithCallback(callback func(p *player.Player, response CustomResponse)) Custom
 	WithCloseCallback(callback func(p *player.Player)) Custom

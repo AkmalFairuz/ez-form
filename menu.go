@@ -16,15 +16,11 @@ type menu struct {
 	closeCallback func(p *player.Player)
 }
 
-func NewMenu() Menu {
+func NewMenu(title string) Menu {
 	return &menu{
+		title:   title,
 		buttons: make([]Button, 0),
 	}
-}
-
-func (m *menu) WithTitle(title string) Menu {
-	m.title = title
-	return m
 }
 
 func (m *menu) WithButton(text string, image ...string) Menu {
@@ -92,7 +88,6 @@ func (m *menu) SubmitJSON(data []byte, s form.Submitter, _ *world.Tx) error {
 type Menu interface {
 	form.Form
 
-	WithTitle(title string) Menu
 	WithButton(text string, image ...string) Menu
 	WithContent(content string) Menu
 	WithCallback(callback func(p *player.Player, result int)) Menu
