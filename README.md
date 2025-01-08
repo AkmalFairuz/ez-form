@@ -51,7 +51,7 @@ func exampleCustom(p *player.Player) {
 	c.WithCallback(func(p *player.Player, response form.CustomResponse) {
 		name := response.String("name")
 		age := response.Int("age")
-		color := response.String("favourite color")
+		colorIndex := response.Int("favourite color")
 		something := response.Bool("something")
 		fmt.Printf("Player %s submitted form with name %s, age %d, color %s and something %t\n", p.Name(), name, age, color, something)
 	})

@@ -1,5 +1,7 @@
 package form
 
+import "reflect"
+
 type customResponse struct {
 	response map[string]any
 }
@@ -9,6 +11,9 @@ func (c customResponse) String(key string) string {
 }
 
 func (c customResponse) Int(key string) int {
+	if reflect.TypeOf(c.response[key]).Kind() == reflect.Float64 {
+		return int(c.response[key].(float64))
+	}
 	return c.response[key].(int)
 }
 
