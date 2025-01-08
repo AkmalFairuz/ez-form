@@ -56,6 +56,7 @@ func (m *menu) MarshalJSON() ([]byte, error) {
 		"type":    "form",
 		"title":   m.title,
 		"content": m.content,
+		"buttons": m.buttons,
 	})
 }
 
