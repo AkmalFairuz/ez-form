@@ -1,14 +1,10 @@
 # ez-form
 
+Form library for dragonfly server
+
+## Example
+
 ```go
-package example
-
-import (
-	"fmt"
-	"github.com/akmalfairuz/ez-form"
-	"github.com/df-mc/dragonfly/server/player"
-)
-
 func exampleMenu(p *player.Player) {
 	m := form.NewMenu().WithTitle("Server Selector")
 	m.WithContent("Available servers:")
@@ -49,15 +45,31 @@ func exampleCustom(p *player.Player) {
 	c.WithElement("favourite color", form.NewDropdown("Select your favorite color").WithOptions("Red", "Green", "Blue"))
 	c.WithElement("something", form.NewToggle("Enable something", false))
 	c.WithCallback(func(p *player.Player, response form.CustomResponse) {
-		name := response.String("name")
-		age := response.Int("age")
-		colorIndex := response.Int("favourite color")
-		something := response.Bool("something")
-		fmt.Printf("Player %s submitted form with name %s, age %d, color %s and something %t\n", p.Name(), name, age, color, something)
+		var data struct {
+			Name         string `form:"name"`
+			Age          int    `form:"age"`
+			FavouriteCol string `form:"favourite color"`
+			Something    bool   `form:"something"`
+		}
+
+		if err := response.Bind(&data); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		fmt.Printf("Player %s submitted form with name %s, age %d, color %s and something %t\n", p.Name(), data.Name, data.Age, data.FavouriteCol, data.Something)
+
+		// Manual parsing
+		// name := response.String("name")
+		// age := response.Int("age")
+		// colorIndex := response.Int("favourite color")
+		// something := response.Bool("something")
+		// fmt.Printf("Player %s submitted form with name %s, age %d, color %s and something %t\n", p.Name(), name, age, colorIndex, something)
 	})
 	c.WithCloseCallback(func(p *player.Player) {
 		fmt.Println("Custom form closed")
 	})
 	p.SendForm(c)
 }
+
 ```
