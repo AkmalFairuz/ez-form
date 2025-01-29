@@ -26,7 +26,7 @@ func NewMenu(title string) Menu {
 func (m *menu) WithButton(text string, image ...string) Menu {
 	btn := NewButton(text)
 	if len(image) > 0 {
-		btn.WithImage(image[0])
+		btn = btn.WithImage(image[0])
 	}
 	m.buttons = append(m.buttons, btn)
 	return m
